@@ -1,4 +1,5 @@
 import numpy as np
+from FuncNull import null
 NFE = np.zeros(2)
 posNos = np.array([[0, 0], [0.5, 0], [1, 0], [0, 0.5], [0.5, 0.5], 
                    [1, 0.5], [0, 1], [0.5, 1], [1, 1]])
@@ -137,17 +138,15 @@ for j in range(numEle):
     for k in range(int(NFE[0])):
         for l in range(int(NFE[1])):
             IGFBG[int(pSoluEle[k])][int(pSoluEle[int(NFE[0])+l])] += IGFBE[k][l]
-#CWN=null(IGFBG);
-#NFTN=size(CWN,2);
-#TT=zeros(NFTN,7);
-#for i=1:NFTN
-#    for j=1:len(NHCW)
-#        TT(i,NHCW(j))=CWN(j,i);
-#for i=1:NFTN
-#    TTG=zeros(CON2,1);
-#    TTG(NAW)=TT(i,1);
-#    for k=2:7
-#        if nosEle_(NAW,k)~=0
-#            TTG(nosEle_(NAW,k))=TT(i,k)+0.5*TTG(NAW);
-#    figure(i)
-#    trisurf(NGEF',posNos_(:,1),posNos_(:,2),TTG)
+CWN = null(IGFBG)
+NFTN = len(CWN[0])
+TT = np.zeros((int(NFTN),7))
+for i in range(int(NFTN)):
+    for j in range(len(NHCW)):
+        TT[i][NHCW[j]] = CWN[j][i]
+for i in range(int(NFTN)):
+    TTG = np.zeros((CON2,1))
+    TTG[noRef] = TT[i][0]
+    for k in range(1,7):
+        if nosEle_[noRef][k] != 0:
+            TTG[int(nosEle_[noRef][k])] = TT[i][k]+0.5*TTG[noRef]
